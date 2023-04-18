@@ -1,0 +1,69 @@
+.negativo {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    color: black;
+    z-index: 10000;
+    position: relative;
+  }
+
+  .positivo {
+    background-color: rgb(165, 3, 3);
+    color: black;
+    
+  }
+
+  .center{
+    justify-content: center;
+    align-items: center;
+  }
+
+  .marco{
+    box-shadow: 0 10px 200px 0 rgba(0, 0, 0, 0), 0 15px 26px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .pie-de-pagina {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+  }
+  
+  .contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .informacion h3,
+  .redes-sociales h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .redes-sociales ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .redes-sociales ul li {
+    margin-right: 2rem;
+  }
+  
+  .redes-sociales ul li:last-child {
+    margin-right: 0;
+  }
+  
+  .redes-sociales ul a {
+    color: #fff;
+    font-size: 2rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .redes-sociales ul a:hover {
+    transform: translateY(-5px);
+  }
