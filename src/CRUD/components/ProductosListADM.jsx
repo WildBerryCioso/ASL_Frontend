@@ -1,28 +1,53 @@
 import { Delete, Edit } from '@mui/icons-material'
 import { Button, Grid, IconButton } from '@mui/material'
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import React from 'react'
 import { useServices } from '../../hooks/UseServices';
+import { EditarProdModal } from '../ADM/EditarProdModal';
 import Swal from 'sweetalert2';
 import { useUiStore } from '../../hooks/useUiStore';
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import "./StylesProductos.css";
 import "../pages/PrincipalPage.css"
-import { VerProdModal } from '../ADM/VerProdModal';
 
 
-export const ProductosList = ({ Productos }) => {
+export const ProductosListADM = ({ Productos }) => {
 
-    const { getProductos, VerProducto } = useServices();
+
+    const { DeletingProductos, getProductos } = useServices();
+    const { OpenSuccess, updateNow } = useUiStore();
     const { openDateModal } = useUiStore();
 
-    const AbrirVer = (prod) => {
+    const onSubmit = (prod) => {
+        Swal.fire({
+            title: 'Estas seguro?',
+            text: "Lo que vas a hacer no se puede revertir!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminalo!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                DeletingProductos(prod);
+            }
+        })
+    }
+
+    const AbrirEditar = (prod) => {
+        openDateModal();
+        //UpdateProducto(prod);
+        //updateNow(actual)
+        //OpenSuccess()
+    }
+
+    const onOpenModal = () => {
         openDateModal();
     }
 
     useEffect(() => {
-        getProductos()
+        getProductos();
     }, [])
 
     return (
@@ -39,6 +64,7 @@ export const ProductosList = ({ Productos }) => {
                                 <img className="img" src={prod.img} alt=""></img>
                                 <Grid className="img-info">
                                     <Grid className="info-inner">
+                                        <span className="p-name">{"id: "+ prod._id}</span>
                                         <span className="p-name">{prod.titulo}</span>
                                         <span className="p-cantidad">{prod.cantidad}</span>
                                     </Grid>
@@ -53,33 +79,33 @@ export const ProductosList = ({ Productos }) => {
                                 <Grid className="cart" >
                                     <span className="price">{new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COL' }).format(prod.precio)}</span>
                                     <span className="add-to-cart">
-                                        {/* <IconButton
-                                            className="fa-solid fa-cart-shopping"
-                                            sx={{
-                                                left: '60%',
-                                                color: '#a4ce3e',
-                                                backgroundColor: 'white',
-                                                margin: '20px 20px 20px 0px',
-                                                ':hover': { backgroundColor: 'white', opacity: 0.8 },
-                                            }}
-                                        >
-                                         </IconButton> */}
                                         <IconButton
-                                            className="fa-solid fa-eye"
+                                            className="fa-solid fa-trash-can"
+                                            sx={{
+                                                left: '40%',
+                                                color: 'red',
+                                                backgroundColor: 'white',
+                                                margin: '5px 20px 5px 5px',
+                                                ':hover': { backgroundColor: 'fourth.main', opacity: 0.8 },
+                                            }} onClick={() => onSubmit(prod)} >
+                                        </IconButton>
+                                        <IconButton
+                                            className="fa-solid fa-pen-to-square"
                                             sx={{
                                                 left: '60%',
                                                 color: '#a4ce3e',
                                                 backgroundColor: 'white',
-                                                margin: '20px 20px 20px 20px',
+                                                margin: '5px 20px 5px 5px',
                                                 ':hover': { backgroundColor: 'fourth.main', opacity: 0.8 },
-                                            }} onClick={() => AbrirVer(prod._id)}>        
+                                            }} onClick={onOpenModal}>
+                                            <EditarProdModal />
                                         </IconButton>
+
                                     </span>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                    <VerProdModal info={(prod)}/>
                 </Grid>
             ))
             }

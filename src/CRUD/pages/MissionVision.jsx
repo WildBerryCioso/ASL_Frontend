@@ -4,6 +4,8 @@ import "./PrincipalPage.css"
 
 export const MissionVision = ({ mision, vision, presentacion, encuentranos, encuentranos2, encuentranos3 }) => {
 
+    
+
     const panels = [
         {
             title: 'Presentación',

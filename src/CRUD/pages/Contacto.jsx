@@ -3,20 +3,23 @@ import { BrowserRouter } from "react-router-dom"
 import { AppRouter } from "../../router/AppRouter"
 import { Navbar } from "../components/Navbar"
 import "./PrincipalPage.css";
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 export const Contacto = () => {
 
-    const [nombre, setNombre] = useState('');
-    const [email, setEmail] = useState('');
-    const [mensaje, setMensaje] = useState('');
+    const form = useRef();
 
-    const enviarFormulario = (event) => {
-        event.preventDefault();
-        // Aquí es donde se enviarían los datos del formulario al servidor
-        // para que el servidor maneje el envío de correo electrónico.
-    }
+    const sendEmail = (e) => {
+        e.preventDefault();
 
+        emailjs.sendForm('service_c3m43xj', 'template_uexvf9q', form.current, 'qe-773r59i-vH5hk5')
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            });
+    };
 
     return (
         <Grid
@@ -43,30 +46,24 @@ export const Contacto = () => {
 
 
                 <div className="login-container2">
-                    <div className="row">
+                    <div >
                         <div className="col-md-6 login-form-1">
                             <h3>Contactanos</h3>
-                            <form className='animate__animated animate__fadeIn animate__faster'>
+                            <hr />
+                            <form ref={form} onSubmit={sendEmail} className='animate__animated animate__fadeIn animate__faster'>
                                 <div className="form-group mb-2">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Correo"
-                                    />
+                                    <input type="text" name="user_name" className="form-control" placeholder="Nombre completo"/>
+                                </div>
+
+                                <div className="form-group mb-3">
+                                    <input type="email" name="user_email" className="form-control" placeholder="Correo"/>
+                                </div>
+
+                                <div className="form-group mb-3">
+                                    <textarea name="message" placeholder="Duda/Inquietud" className="form-control"/>
                                 </div>
                                 <div className="form-group mb-3">
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        placeholder="Duda/Inquietud"
-                                    />
-                                </div>
-                                <div className="form-group mb-2">
-                                    <input
-                                        type="submit"
-                                        className="btnSubmit"
-                                        value="Enviar"
-                                    />
+                                    <input type="submit" value="Enviar" className="btnSubmit" />
                                 </div>
                                 <span >
                                     Disclaimer: Uso exclusivo para garantias, cambios o para grandes pedidos.
@@ -81,7 +78,5 @@ export const Contacto = () => {
                 </div>
             </Grid>
         </Grid >
-    )
-}
-
-
+    );
+};

@@ -4,8 +4,11 @@ import { PieDePagina } from "./CRUD/components/PieDePagina"
 import { AppRouter } from "./router/AppRouter"
 import { Provider } from "react-redux"
 import { store } from './store';
+import './Principal.css'
+
 
 export const Principal = () => {
+
   return (
     <Provider store={store}>
       <BrowserRouter>

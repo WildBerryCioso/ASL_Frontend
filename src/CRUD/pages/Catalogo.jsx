@@ -4,63 +4,37 @@ import { AppRouter } from "../../router/AppRouter"
 import { Navbar } from "../components/Navbar"
 import "./PrincipalPage.css"
 import React from 'react';
+import { useServices } from '../../hooks/UseServices';
 import { Producto } from './Producto';
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { ProductosList } from '../components/ProductosList';
+import { Search } from '@mui/icons-material';
+import { CheckingAuth } from '../../ui';
+import { VerProdModal } from '../ADM/VerProdModal';
 
-const productsList = [
-    {
-        id: 1,
-        name: 'Camiseta A',
-        description: 'Camiseta del Wolverhampton Football Club',
-        price: 100,
-        image: '/src/img/1.jpg',
-        stock: 100,
-    },
-    {
-        id: 2,
-        name: 'Camiseta B',
-        description: 'Camiseta del Stourbridge F.C.',
-        price: 200,
-        image: '/src/img/2.jpg',
-        stock: 100,
-    },
-    {
-        id: 3,
-        name: 'Camiseta C',
-        description: 'Camiseta del Fútbol Club Barcelona',
-        price: 300,
-        image: '/src/img/3.jpg',
-        stock: 100,
-    },
-    {
-        id: 4,
-        name: 'Camiseta D',
-        description: 'Camiseta del Wolverhampton Football Club',
-        price: 100,
-        image: '/src/img/1.jpg',
-        stock: 100,
-    },
-    {
-        id: 5,
-        name: 'Camiseta E',
-        description: 'Camiseta del Stourbridge F.C.',
-        price: 200,
-        image: '/src/img/2.jpg',
-        stock: 100,
-    },
-    {
-        id: 6,
-        name: 'Camiseta F',
-        description: 'Camiseta del Fútbol Club Barcelona',
-        price: 300,
-        image: '/src/img/3.jpg',
-        stock: 100,
-    },
+export const Catalogo = () => {
 
-];
+    const [search, setSearch] = useState('');
+    const { getProductos } = useServices();
+    const { productos } = useSelector(state => state.producto);
 
-const items = ['Inicio', 'Acerca de', 'Contacto', 'Hola', 'Pai'];
+    const filteredProducts = () => {
 
-export const Catalogo = ({ name, description, price, image }) => {
+        if (search.length === 0)
+            return productos
+        //const productosfiltrados = productos;
+        const productosfiltrados = productos.filter(prod => prod.nombre.includes(search) || prod.referencia.includes(search))
+        return productosfiltrados
+    }
+
+    const onSearchChange = ({ target }) => {
+        setSearch(target.value);
+    }
+
+    useEffect(() => {
+        getProductos()
+    }, [])
 
     return (
 
@@ -73,32 +47,26 @@ export const Catalogo = ({ name, description, price, image }) => {
             justifyContent="space-evenly"
             sx={{ minHeight: '100vh', backgroundColor: 'white', marginTop: 5 }}
         >
-            <Grid>
-                <div className="sidebar">
-                    <ul>
-                        {items.map((item, index) => (
-                            <li key={index}>
-                                <a href="#">{item}</a>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </Grid>
 
-            <Grid>
-                <div className="products-catalog">
-                    {productsList.map(product => (
-                        <Producto
-                            key={product.id}
-                            name={product.name}
-                            description={product.description}
-                            price={product.price}
-                            image={product.image}
-                            stock={product.stock}
-                        />
-                    ))}
-                </div>
-            </Grid>
+            <form autoComplete='off'>
+                <TextField
+                    id="outlined-start-adornment"
+                    placeholder='Buscar'
+                    value={search.toLowerCase()}
+                    type="text"
+                    sx={{ marginInline: 5, width: '260px', backgroundColor: 'white', borderRadius: '10px', marginTop: 2 }}
+                    InputProps={{
+                        startAdornment: <InputAdornment position="start"></InputAdornment>,
+                        endAdornment: <InputAdornment position="end"><Button alt="Buscar"><Search /></Button></InputAdornment>
+                    }}
+                    onChange={onSearchChange}
+                />
+
+            </form>
+
+            {Object.keys(productos).length === 0 ? <CheckingAuth />
+                : <ProductosList Productos={filteredProducts()} />}
+
 
             <Grid
                 container
@@ -110,7 +78,8 @@ export const Catalogo = ({ name, description, price, image }) => {
                 xs={12}
                 sx={{ height: '100%', width: '100%', backgroundColor: 'white', marginRight: 0, marginLeft: 0, marginTop: 5 }}>
             </Grid>
+
+            
         </Grid >
     )
 }
-

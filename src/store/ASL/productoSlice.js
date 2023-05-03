@@ -4,10 +4,12 @@ export const productoslice = createSlice({
     name: 'producto',
     initialState: {
         productos: {},
-        pedidos: []
     },
     reducers: {
         onProductos: (state, { payload }) => {
+            state.productos = payload
+        },
+        onProducto: (state, { payload }) => {
             state.productos = payload
         },
         onAddNewProductos: ( state, { payload }) => {
@@ -22,18 +24,9 @@ export const productoslice = createSlice({
                 return producto;
             });
         },
-        onPedidos: (state, { payload }) => {
-            state.pedidos = payload
-        },
-        onAddPedidos: (state, { payload }) => {
-            state.pedidos.push(payload);
-        },
-        onDeletePedidos: (state, { payload }) => {
-            state.pedidos = state.pedidos.filter(pedido => pedido.id != payload.id);
-        },
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { onProductos, onUpdateProductos, onAddNewProductos, onPedidos, onAddPedidos, onDeletePedidos } = productoslice.actions;
+export const { onProductos, onProducto, onUpdateProductos, onAddNewProductos} = productoslice.actions;

@@ -1,20 +1,20 @@
 import { FormControl, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Modal from 'react-modal';
-import './stylesModal.css'
-import { useUiStore } from '../../hooks';
-import { useServices } from '../../hooks/UseServices';
-import { useFormik } from 'formik';
+import './stylesModal.css';
 import { Cancel, Save } from '@mui/icons-material';
+import { useUiStore } from '../../hooks/useUiStore';
+import { useFormik } from 'formik'
+import { useServices } from '../../hooks/UseServices';
 import { ProductosValidacion } from '../schemas/ProductosValidacion';
 
 Modal.setAppElement('#root');
 
-export const CrearProdModal = () => {
+export const EditarProdModal = () => {
 
-    const { isDateModalOpen, closeDateModal } = useUiStore();
+    const { isSuccessOpen, CloseSuccess, isNow } = useUiStore();
 
-    const { savingProductos, getProductos } = useServices();
+    const { savingProductos } = useServices();
 
     const fileInputRef = useRef();
 
@@ -28,19 +28,16 @@ export const CrearProdModal = () => {
 
     const onSubmit = (values, actions) => {
         savingProductos(values, file)
-        console.log(values)
         console.log(file)
-        resetForm();
-        closeDateModal();
-    }
-    const onCloseModal = () => {
-        resetForm()
-        closeDateModal();
+        actions.resetForm();
+        CloseSuccess();
     }
 
-    useEffect(() => {
-        getProductos();
-    }, [])
+    const onCloseModal = () => {
+        resetForm()
+        CloseSuccess();
+    }
+
 
 
     const { values, handleChange, handleBlur, handleSubmit, errors, touched, isSubmitting, resetForm, setValues } = useFormik({
@@ -58,26 +55,26 @@ export const CrearProdModal = () => {
 
     return (
         <Modal
-            isOpen={isDateModalOpen}
+            isOpen={isSuccessOpen}
             onRequestClose={onCloseModal}
-            className="modalProductos"
+            className="modalEditarProductos"
             overlayClassName="modal-fondo"
             closeTimeoutMS={200}
         >
-            <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='28px' fontWeight='bold' > Agregar/Actualizar producto </Typography>
+            <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='28px' fontWeight='bold' > Editar producto </Typography>
             <hr />
             <form onSubmit={handleSubmit} autoComplete='off' className='animate__animated animate__fadeIn animate__faster'>
                 <Grid container direction='column' justifyContent='center'>
                     <Grid >
                         <Grid style={{ width: '100%', padding: '5px' }}>
                             <TextField
-                                id='_id'
-                                name='_id'
-                                label="ID (Si vas a actualizar producto llena este campo)*"
+                                id='id'
+                                name='id'
+                                label="ID *"
                                 type="text"
-                                placeholder='_id'
+                                placeholder='id'
                                 fullWidth
-                                value={values._id}
+                                value={values.nombre}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 error={errors._id && touched._id ? true : false}
@@ -88,42 +85,25 @@ export const CrearProdModal = () => {
                     <Grid >
                         <Grid style={{ width: '100%', padding: '5px' }}>
                             <TextField
-                                id='titulo'
-                                name='titulo'
-                                label="Titulo *"
+                                id='nombre'
+                                name='nombre'
+                                label="Nombre *"
                                 type="text"
-                                placeholder='Titulo'
+                                placeholder='Nombre'
                                 fullWidth
-                                value={values.titulo}
+                                value={values.nombre}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                error={errors.titulo && touched.titulo ? true : false}
-                                helperText={errors.titulo && touched.titulo ? errors.titulo : ""}
+                                error={errors.nombre && touched.nombre ? true : false}
+                                helperText={errors.nombre && touched.nombre ? errors.nombre : ""}
                             />
                         </Grid>
                     </Grid>
                     <Grid >
                         <Grid style={{ width: '100%', padding: '5px' }}>
                             <TextField
-                                id='descripcion'
-                                name='descripcion'
-                                label="Descripcion *"
-                                type="text"
-                                placeholder='descripcion'
-                                fullWidth
-                                value={values.descripcion}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                error={errors.descripcion && touched.descripcion ? true : false}
-                                helperText={errors.descripcion && touched.descripcion ? errors.descripcion : ""}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid >
-                        <Grid style={{ width: '100%', padding: '5px' }}>
-                            <TextField
-                                id='img'
-                                nombre='img'
+                                id='imagenURL'
+                                nombre='imagenURL'
                                 type="file"
                                 fullWidth
                                 ref={fileInputRef}
@@ -167,6 +147,40 @@ export const CrearProdModal = () => {
                         </Grid>
                     </Grid>
                     <Grid >
+                        <Grid style={{ width: '100%', padding: '5px' }}>
+                            <TextField
+                                id='descripcion'
+                                name='descripcion'
+                                label="Descripcion *"
+                                type="text"
+                                placeholder='descripcion'
+                                fullWidth
+                                value={values.descripcion}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                error={errors.descripcion && touched.descripcion ? true : false}
+                                helperText={errors.descripcion && touched.descripcion ? errors.descripcion : ""}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid >
+                        <Grid style={{ width: '100%', padding: '5px' }}>
+                            <TextField
+                                id='referencia'
+                                name='referencia'
+                                label="Referencia *"
+                                type="text"
+                                placeholder='referencia'
+                                fullWidth
+                                value={values.referencia}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                error={errors.referencia && touched.referencia ? true : false}
+                                helperText={errors.referencia && touched.referencia ? errors.referencia : ""}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid >
                         <Grid container direction='row' justifyContent='center' >
                             <IconButton
                                 size='large'
@@ -194,8 +208,6 @@ export const CrearProdModal = () => {
                                     fontSize: '18px'
                                 }}
                                 type="submit"
-                            //onClick={onSubmit}
-                            // disabled={Object.keys(errors).length !== 0 || !touched.nombre || !touched.rol || !touched.ciudad || !touched.email || !touched.password ? true : false}
                             >
                                 Guardar &nbsp;
                                 <Save />

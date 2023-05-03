@@ -14,3 +14,5 @@ export * from './pages/Producto';
 export * from './components/ASL_img.png';
 export * from './ADM/ADMPage';
 export * from './ADM/CrearProdModal';
+export * from './ADM/ADMPage';
+export * from './ADM/CrearProdModal';

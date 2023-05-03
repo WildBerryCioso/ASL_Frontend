@@ -6,29 +6,16 @@ import "./Navbar.css";
 import { Box } from '@mui/system';
 import { useAuthStore } from '../../hooks';
 import React, { useState } from 'react';
+import { useEffect } from "react";
 
 export const Navbar = () => {
 
-  const { startLogout, user, status } = useAuthStore();
+  const { startLogout, user, status, checkAuthToken } = useAuthStore();
 
-  /*if( status === 'not-authenticated' ){
-    setBotonActivo(true);
-  }*/
+  useEffect(() => {
+    checkAuthToken();
+  }, [])
   
-  const [loggedIn, setLoggedIn] = useState(true);
-
-  function handleLogin() {
-    if(status==='not-authenticated'){
-      setLoggedIn(true);
-    }
-  }
-
-  function handleLogout() {
-    if(status==='not-authenticated'){
-      setLoggedIn(true);
-    }
-  }
-
   return (
 
     <Box className="marco" sx={{ display: 'flex' }}>
@@ -58,21 +45,28 @@ export const Navbar = () => {
         <Grid>
           <form action="" id="navegador">
             <ul>
-              <li className="button-diagonal"><Link
-                className="text" component={Link}
-                style={{ textDecoration: 'none', color: 'black' }} href="/">Inicio</Link></li>
-              <li className="button-diagonal"><Link
-                className="text" component={Link}
-                style={{ textDecoration: 'none', color: 'black' }} href="/Catalogo">Catalogo</Link></li>
-              <li className="button-diagonal"><Link
-                className="text" component={Link}
-                style={{ textDecoration: 'none', color: 'black' }} href="/Contacto">Contacto</Link></li>
-              <li className="button-diagonal"><Link
-                className="text" component={Link}
-                style={{ textDecoration: 'none', color: 'black' }} href="/Informacion">Informacion</Link></li>
-                <li className="button-diagonal"><Link
-                className="text" component={Link}
-                style={{ textDecoration: 'none', color: 'black' }} href="/Admin">Admin</Link></li>
+              {
+                (user.type === 'admin')
+                  ? (
+                    <>
+                      
+                    </>)
+                  : (
+                    <>
+                      <li className="button-diagonal"><Link
+                        className="text" component={Link}
+                        style={{ textDecoration: 'none', color: 'black' }} href="/">Inicio</Link></li>
+                      <li className="button-diagonal"><Link
+                        className="text" component={Link}
+                        style={{ textDecoration: 'none', color: 'black' }} href="/Catalogo">Catalogo</Link></li>
+                      <li className="button-diagonal"><Link
+                        className="text" component={Link}
+                        style={{ textDecoration: 'none', color: 'black' }} href="/Contacto">Contacto</Link></li>
+                      <li className="button-diagonal"><Link
+                        className="text" component={Link}
+                        style={{ textDecoration: 'none', color: 'black' }} href="/Informacion">Informacion</Link></li>
+                    </>)
+              } 
             </ul>
           </form>
         </Grid>
@@ -83,32 +77,34 @@ export const Navbar = () => {
           </span>
           <IconButton sx={{ color: 'black', fontSize: '30px' }} href="/Carrito" className="fa-solid fa-cart-shopping">
           </IconButton>
-
-          <IconButton
-            hidden={!loggedIn}
-            sx={{ color: 'black', fontSize: '10px' }}
-            href="/Auth"
-            className="fas fa-sign-out-alt">
-            &nbsp;
-            Login/Register
-          </IconButton>
-
-
-
-          <IconButton
-            hidden={!loggedIn}
-            onClick={startLogout}
-            sx={{ color: 'red', fontSize: '10px' }}
-            href="/Auth"
-            className="fas fa-sign-out-alt">
-            &nbsp;
-            Salir
-          </IconButton>
+          {
+            (status === 'authenticated')
+              ? (
+                <>
+                  <IconButton
+                    onClick={startLogout}
+                    sx={{ color: 'red', fontSize: '10px' }}
+                    href="/Auth"
+                    className="fas fa-sign-out-alt">
+                    &nbsp;
+                    Salir
+                  </IconButton>
+                </>)
+              : (
+                <>
+                  <IconButton
+                    sx={{ color: 'black', fontSize: '10px' }}
+                    href="/Auth"
+                    className="fas fa-sign-out-alt">
+                    &nbsp;
+                    Login/Register
+                  </IconButton>
+                </>)
+          }
         </Grid>
 
       </Grid>
       <Divider />
     </Box>
-
   )
 }
