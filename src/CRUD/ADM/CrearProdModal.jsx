@@ -45,7 +45,7 @@ export const CrearProdModal = () => {
 
     const { values, handleChange, handleBlur, handleSubmit, errors, touched, isSubmitting, resetForm, setValues } = useFormik({
         initialValues: {
-            _id: '',
+            referencia: '',
             titulo: '',
             cantidad: '',
             precio: '',
@@ -64,24 +64,24 @@ export const CrearProdModal = () => {
             overlayClassName="modal-fondo"
             closeTimeoutMS={200}
         >
-            <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='28px' fontWeight='bold' > Agregar/Actualizar producto </Typography>
+            <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='28px' fontWeight='bold' > Agregar producto </Typography>
             <hr />
             <form onSubmit={handleSubmit} autoComplete='off' className='animate__animated animate__fadeIn animate__faster'>
                 <Grid container direction='column' justifyContent='center'>
                     <Grid >
                         <Grid style={{ width: '100%', padding: '5px' }}>
                             <TextField
-                                id='_id'
-                                name='_id'
-                                label="ID (Si vas a actualizar producto llena este campo)*"
+                                id='referencia'
+                                name='referencia'
+                                label="Referencia *"
                                 type="text"
-                                placeholder='_id'
+                                placeholder='Referencia'
                                 fullWidth
-                                value={values._id}
+                                value={values.referencia}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                error={errors._id && touched._id ? true : false}
-                                helperText={errors._id && touched._id ? errors._id : ""}
+                                error={errors.referencia && touched.referencia ? true : false}
+                                helperText={errors.referencia && touched.referencia ? errors.referencia : ""}
                             />
                         </Grid>
                     </Grid>

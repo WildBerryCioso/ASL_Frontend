@@ -1,10 +1,8 @@
 import { Button, Link, Grid, IconButton, Input, InputAdornment, TextField, Typography } from '@mui/material/'
-import { BrowserRouter } from "react-router-dom"
-import { AppRouter } from "../../router/AppRouter"
-import { Navbar } from "../components/Navbar"
 import "./PrincipalPage.css";
 import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import Swal from 'sweetalert2';
 
 export const Contacto = () => {
 
@@ -19,6 +17,12 @@ export const Contacto = () => {
             }, (error) => {
                 console.log(error.text);
             });
+            Swal.fire({
+                title: 'Correo enviado',
+                text: "Correo enviado con exito",
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+            })
     };
 
     return (
@@ -45,37 +49,38 @@ export const Contacto = () => {
 
 
 
-                <div className="login-container2">
-                    <div >
-                        <div className="col-md-6 login-form-1">
-                            <h3>Contactanos</h3>
+                <Grid className="col-md-6 login-container2">
+                    <Grid className="row">
+                        <Grid className="col-md-6 login-form-1">
+                            <Typography textAlign="center" fontSize='40px' fontWeight='bold' variant='h4' color='black' sx={{ marginInline: 8 }}> Contactanos </Typography>
                             <hr />
                             <form ref={form} onSubmit={sendEmail} className='animate__animated animate__fadeIn animate__faster'>
-                                <div className="form-group mb-2">
-                                    <input type="text" name="user_name" className="form-control" placeholder="Nombre completo"/>
-                                </div>
+                                <Grid className="form-group mb-2">
+                                    <input type="text" name="user_name" className="form-control" placeholder="Nombre completo" />
+                                </Grid>
 
-                                <div className="form-group mb-3">
-                                    <input type="email" name="user_email" className="form-control" placeholder="Correo"/>
-                                </div>
+                                <Grid className="form-group mb-3">
+                                    <input type="email" name="user_email" className="form-control" placeholder="Correo" />
+                                </Grid>
 
-                                <div className="form-group mb-3">
-                                    <textarea name="message" placeholder="Duda/Inquietud" className="form-control"/>
-                                </div>
-                                <div className="form-group mb-3">
+                                <Grid className="form-group mb-3">
+                                    <textarea name="message" placeholder="Duda/Inquietud" className="form-control" />
+                                </Grid>
+                                <Grid className="form-group mb-3">
                                     <input type="submit" value="Enviar" className="btnSubmit" />
-                                </div>
+                                </Grid>
                                 <span >
                                     Disclaimer: Uso exclusivo para garantias, cambios o para grandes pedidos.
                                 </span>
                             </form>
-                        </div>
-                        <br />
-
-                    </div>
-                    <br />
-                    <br />
-                </div>
+                        </Grid>
+                        <Grid className="col-md-6 login-form-2" >
+                            <Grid className="form-group mb-2" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <img className='img' src="/src/img/Recurso 13@3x.png" />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid >
     );

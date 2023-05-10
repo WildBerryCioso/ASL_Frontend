@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { useUiStore } from '../../hooks/useUiStore';
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
+import { onUpdateNow } from '../../store';
 import "./StylesProductos.css";
 import "../pages/PrincipalPage.css"
 
@@ -16,9 +17,9 @@ export const ProductosListADM = ({ Productos }) => {
 
     const { DeletingProductos, getProductos } = useServices();
     const { OpenSuccess, updateNow } = useUiStore();
-    const { openDateModal } = useUiStore();
 
-    const onSubmit = (prod) => {
+    const AbrirDelete = (prod) => {
+        onUpdateNow(prod)
         Swal.fire({
             title: 'Estas seguro?',
             text: "Lo que vas a hacer no se puede revertir!",
@@ -35,20 +36,10 @@ export const ProductosListADM = ({ Productos }) => {
         })
     }
 
-    const AbrirEditar = (prod) => {
-        openDateModal();
-        //UpdateProducto(prod);
-        //updateNow(actual)
-        //OpenSuccess()
+    const AbrirEditar = (actual) => {
+        updateNow(actual)
+        OpenSuccess()
     }
-
-    const onOpenModal = () => {
-        openDateModal();
-    }
-
-    useEffect(() => {
-        getProductos();
-    }, [])
 
     return (
         <Grid container
@@ -57,18 +48,21 @@ export const ProductosListADM = ({ Productos }) => {
             alignItems="flex-start"
             justifyContent="space-evenly">
             {Productos.map((prod, i) => (
-                <Grid className="page-inner">
+                <Grid className="page-inner" key={i}>
                     <Grid className="row">
                         <Grid className="el-wrapper">
                             <Grid className="box-up">
                                 <img className="img" src={prod.img} alt=""></img>
                                 <Grid className="img-info">
                                     <Grid className="info-inner">
-                                        <span className="p-name">{"id: "+ prod._id}</span>
+                                        <span className="p-name">{"Id: " + prod._id}</span>
+                                        <span className="size2">{prod.referencia}</span>
                                         <span className="p-name">{prod.titulo}</span>
                                         <span className="p-cantidad">{prod.cantidad}</span>
                                     </Grid>
-                                    <Grid className="a-size"><span className="size">{prod.descripcion}</span></Grid>
+                                    <Grid className="a-size">
+                                        <span className="size">{prod.descripcion}</span>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                             <Grid className="box-down">
@@ -87,7 +81,7 @@ export const ProductosListADM = ({ Productos }) => {
                                                 backgroundColor: 'white',
                                                 margin: '5px 20px 5px 5px',
                                                 ':hover': { backgroundColor: 'fourth.main', opacity: 0.8 },
-                                            }} onClick={() => onSubmit(prod)} >
+                                            }} onClick={() => AbrirDelete(prod)} >
                                         </IconButton>
                                         <IconButton
                                             className="fa-solid fa-pen-to-square"
@@ -97,8 +91,8 @@ export const ProductosListADM = ({ Productos }) => {
                                                 backgroundColor: 'white',
                                                 margin: '5px 20px 5px 5px',
                                                 ':hover': { backgroundColor: 'fourth.main', opacity: 0.8 },
-                                            }} onClick={onOpenModal}>
-                                            <EditarProdModal />
+                                            }} onClick={() => AbrirEditar(prod)}>
+
                                         </IconButton>
 
                                     </span>

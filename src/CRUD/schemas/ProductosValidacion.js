@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 export const ProductosValidacion = yup.object().shape({
-
+    referencia: yup.string().required("Requerido"),
     titulo: yup.string().min(3).required("Requerido"),
     cantidad: yup.number().max(999, 'No puede tener mas de 999 articulos').positive().integer().required("Requerido"),
     precio: yup.number().positive().integer().required("Requerido"),

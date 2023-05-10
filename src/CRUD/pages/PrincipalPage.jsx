@@ -1,30 +1,24 @@
-import { Button, Grid, IconButton, Input, InputAdornment, TextField, Typography } from '@mui/material/'
-import { BrowserRouter } from "react-router-dom"
-import { AppRouter } from "../../router/AppRouter"
+import { Grid, Typography } from '@mui/material/'
 import "./PrincipalPage.css"
 
 export const PrincipalPage = () => {
 
     const images = [
         {
-            url: "/src/img/1.jpg",
-            title: 'Imagen 1',
-            description: 'Descripción de la imagen 1'
+            url: "/src/img/Pacifico.png",
+            title: 'Colección PACIFICO',
         },
         {
-            url: "/src/img/2.jpg",
-            title: 'Imagen 2',
-            description: 'Descripción de la imagen 2'
+            url: "/src/img/Animales.png",
+            title: 'Colección ANIMALES',
         },
         {
-            url: "/src/img/3.jpg",
-            title: 'Imagen 3',
-            description: 'Descripción de la imagen 3'
+            url: "/src/img/Etnias.png",
+            title: 'Colección ETNIAS',
         },
         {
-            url: "/src/img/4.jpg",
-            title: 'Imagen 4',
-            description: 'Descripción de la imagen 3'
+            url: "/src/img/Clasic.png",
+            title: 'Colección CLASIC',
         },
     ];
 
@@ -62,18 +56,17 @@ export const PrincipalPage = () => {
                 <br />
                 <br />
 
-                <div className='gallery'>
+                <hr />
+                <Grid className='gallery'>
                     {images.map((image) => (
-                        <div key={image.url}>
-                            <h3>{image.title}</h3>
-                            <img  src={image.url} alt={image.title} />
-                            <p>{image.description}</p>
-                        </div>
+                        <Grid className='img' key={image.url}>
+                            <Typography className="p-name" textAlign="center" fontSize='20px' fontWeight='bold' variant='h4' color='black' sx={{ marginInline: 8 }}>{image.title}</Typography>
+                            <img className='img' src={image.url} alt={image.title} />
+                        </Grid>
                     ))}
-                </div>
-
+                </Grid>
+                <br />
             </Grid>
-
         </Grid >
     )
 }

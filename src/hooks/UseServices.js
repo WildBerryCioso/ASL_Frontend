@@ -14,9 +14,9 @@ export const useServices = () => {
     const getProductos = async () => {
         try {
             const { data } = await ASL.get('/productos');
-            console.log(data)
+            //console.log(data)
             dispatch(onProductos(data.producto));
-            console.log(data.producto);
+            //console.log(data.producto);
 
             return{data}
         } catch (error) {
@@ -30,16 +30,11 @@ export const useServices = () => {
         //dispatch(onChecking());
         try {
             const imagen = await fileUpload(file[0], 'ASL-img');
-            const { date } = await ASL.get('/productos');
-
-            console.log(values._id)
 
             if (values._id) {
                 // Actualizando
                 values.img = imagen;
                 const { data } = await ASL.put(`/productos/${values._id}`, values);
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('token-init-date', new Date().getTime());
                 console.log(data)
                 dispatch(onProductos(data.producto));
                 if (data.ok) {
@@ -55,7 +50,7 @@ export const useServices = () => {
             } else {
                 //Creando
 
-                const { data } = await ASL.post('/productos', { titulo: values.titulo, img: imagen, cantidad: values.cantidad, precio: values.precio, descripcion: values.descripcion });
+                const { data } = await ASL.post('/productos', { referencia: values.referencia , titulo: values.titulo, img: imagen, cantidad: values.cantidad, precio: values.precio, descripcion: values.descripcion });
 
                 dispatch(onAddNewProductos({ ...data.producto, user }));
                 console.log(data)
@@ -69,20 +64,14 @@ export const useServices = () => {
                     })
                 }
             }
-
-
         } catch (error) {
             console.log(error);
             Swal.fire('Error al guardar', error.response.data.msg, 'error');
         }
-
-
     }
 
-    //Ya - Ultimar detalles
+    //Ya
     const DeletingProductos = async (prod) => {
-
-        console.log(prod._id)
         try {
             const { data } = await ASL.delete(`/productos/${prod._id}`);
             console.log(data)
@@ -94,58 +83,10 @@ export const useServices = () => {
                     'success'
                 )
             }
-            getProductos();
         } catch (error) {
             console.log(error);
             Swal.fire('Error al eliminar', error.response.data.msg, 'error');
         }
-
-    }
-
-    const UpdateProducto = async (prod) => {
-
-        try {
-            const imagen = await fileUpload(file[0], 'ASL-img');
-            if (values.id) {
-                // Actualizando
-                const { data } = await ASL.put(`/productos/${values.id}`, values);
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('token-init-date', new Date().getTime());
-                console.log(data)
-                dispatch(onProductos(data.producto));
-                if (data.ok) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'El producto fue actualizado con exito!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                }
-                return;
-            }
-            //Creando
-
-            const { data } = await ASL.post('/productos', { titulo: values.titulo, img: imagen, cantidad: values.cantidad, precio: values.precio, descripcion: values.descripcion });
-
-            dispatch(onAddNewProductos({ ...data.producto, user }));
-            console.log(data)
-            if (data.ok) {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'El producto fue creado con exito!',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            }
-
-        } catch (error) {
-            console.log(error);
-            Swal.fire('Error al guardar', error.response.data.msg, 'error');
-        }
-
-
     }
 
     const VerProducto = async (prod, Producto) => {
@@ -171,7 +112,6 @@ export const useServices = () => {
         getProductos,
         savingProductos,
         DeletingProductos,
-        UpdateProducto,
         VerProducto
     }
 }

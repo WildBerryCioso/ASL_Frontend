@@ -1,44 +1,11 @@
-import { Grid, TextField, Typography, Box } from '@mui/material/'
-import { AppRouter } from "../../router/AppRouter"
-import { Navbar } from "../components/Navbar"
+import { Grid} from '@mui/material/'
 import "./PrincipalPage.css"
 import { MissionVision } from './MissionVision'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import React from 'react'
-
-
-// const containerStyle = {
-//     width: '400px',
-//     height: '400px'
-// };
-
-// const center = {
-//     lat: -3.745,
-//     lng: -38.523
-// };
 
 export const Informacion = () => {
 
-    // const { isLoaded } = useJsApiLoader({
-    //     id: 'google-map-script',
-    //     googleMapsApiKey: "YOUR_API_KEY"
-    // })
-
-    // const [map, setMap] = React.useState(null)
-
-    // const onLoad = React.useCallback(function callback(map) {
-    //     // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    //     const bounds = new window.google.maps.LatLngBounds(center);
-    //     map.fitBounds(bounds);
-
-    //     setMap(map)
-    // }, [])
-
-    // const onUnmount = React.useCallback(function callback(map) {
-    //     setMap(null)
-    // }, [])
-
-    return /*isLoaded ?*/ (
+    return (
         <Grid
             className='animate__animated animate__fadeIn animate__faster'
             container
@@ -76,20 +43,11 @@ export const Informacion = () => {
                         compromiso con la responsabilidad social y el cuidado del medio ambiente."
                 encuentranos="Que estarían ubicados en:"
                 encuentranos2=" 1️⃣ Calle 50 # 77B - 23. Bicy Hoyos."
-                encuentranos3=" 2️⃣ Politécnico Colombiano Jaime Isaza Cadavid (ustedes me ayudan con la ubicación que no recuerdo el bloque)"
+                encuentranos3=" 2️⃣ Cra. 48 #7 151 - Politecnico JIC"
             />
 
-            {/* <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={10}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-            >
-                <></>
-            </GoogleMap> */}
         </Grid >
-    ) //: <></>
+    )
 }
 
 

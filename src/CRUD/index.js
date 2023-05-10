@@ -16,3 +16,4 @@ export * from './ADM/ADMPage';
 export * from './ADM/CrearProdModal';
 export * from './ADM/ADMPage';
 export * from './ADM/CrearProdModal';
+export * from './components/Cart/cart';

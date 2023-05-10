@@ -1,6 +1,6 @@
 import React from 'react';
 import './LoginPage.css';
-import { Grid, Link } from '@mui/material'
+import { Grid, Link, Typography } from '@mui/material'
 import { useEffect } from 'react'
 import { Button, TextField } from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
@@ -52,7 +52,7 @@ export const LoginPage = () => {
         <div className="login-container">
             <div className="row">
                 <div className="col-md-6 login-form-1">
-                    <h3>Ingreso</h3>
+                    <Typography textAlign="center" fontSize='40px' fontWeight='bold' variant='h3' color='black' > Ingreso </Typography>
                     <form onSubmit={loginSubmit} className='animate__animated animate__fadeIn animate__faster'>
                         <div className="form-group mb-2">
                             <input
@@ -85,7 +85,7 @@ export const LoginPage = () => {
                 </div>
                 <br />
                 <div className="col-md-6 login-form-2" >
-                    <h3>Registro</h3>
+                    <Typography textAlign="center" fontSize='40px' fontWeight='bold' variant='h3' > Registro </Typography>
                     <form onSubmit={registerSubmit} className='animate__animated animate__fadeIn animate__faster'>
                         <div className="form-group mb-2">
                             <input
@@ -138,7 +138,7 @@ export const LoginPage = () => {
                     </form>
                 </div>
             </div>
-            <br />1
+            <br />
         </div>
     )
 }

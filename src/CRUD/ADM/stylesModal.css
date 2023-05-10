@@ -41,31 +41,19 @@
     padding: 10px;
 }
 
-.modalruta{
-    background: white;
-    border-radius: 5px;
-    color: rgb(51, 51, 51);
-    display: flex;
-    flex-direction: column;
-    height: 21.25rem;
-    width: 31.25rem;
-    outline: none;
-    padding: 10px;
-}
-
-.modalCliente{
-    background: white;
-    border-radius: 5px;
-    color: rgb(51, 51, 51);
-    display: flex;
-    flex-direction: column;
-    height: 31.25rem;
-    width: 31.25rem;
-    outline: none;
-    padding: 10px;
-}
-
 .modalProductos{
+    background: white;
+    border-radius: 5px;
+    color: rgb(51, 51, 51);
+    display: flex;
+    flex-direction: column;
+    height: 40rem;
+    width: 40rem;
+    outline: none;
+    padding: 10px;
+}
+
+.modalProducto{
     background: white;
     border-radius: 5px;
     color: rgb(51, 51, 51);
@@ -83,45 +71,8 @@
     color: rgb(51, 51, 51);
     display: flex;
     flex-direction: column;
-    height: 30.25rem;
-    width: 31.25rem;
+    height: 40rem;
+    width: 38rem;
     outline: none;
     padding: 10px;
-}
-
-.modalAsesor{
-    background: white;
-    border-radius: 5px;
-    color: rgb(51, 51, 51);
-    display: flex;
-    flex-direction: column;
-    height: 27.25rem;
-    width: 31.25rem;
-    outline: none;
-    padding: 10px;
-}
-
-.modalEditarAsesor{
-    background: white;
-    border-radius: 5px;
-    color: rgb(51, 51, 51);
-    display: flex;
-    flex-direction: column;
-    height: 21.25rem;
-    width: 31.25rem;
-    outline: none;
-    padding: 10px;
-}
-
-.modalPedido{
-    background: white;
-    border-radius: 5px;
-    color: rgb(51, 51, 51);
-    display: flex;
-    flex-direction: column;
-    height: 21.25rem;
-    width: 31.25rem;
-    outline: none;
-    padding: 10px;
-    overflow: scroll;
 }

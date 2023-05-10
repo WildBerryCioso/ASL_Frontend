@@ -11,14 +11,14 @@ export const useAuthStore = () => {
 
     const startLogin = async ({ email, password }) => {
         dispatch(onChecking());
-        console.log({ email, password });
+        //console.log({ email, password });
 
         try {
             const { data } = await ASL.post('/auth', { email, password });
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             console.log(data);
-            dispatch(onLogin({ name: data.name, uid: data.uid, type: data.typeU}));
+            dispatch(onLogin({ name: data.name, uid: data.uid, type: data.typeU, email: data.email}));
 
         } catch (error) {
             dispatch(onLogout('Credenciales incorrectas'));
@@ -38,7 +38,7 @@ export const useAuthStore = () => {
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             console.log(data);
-            dispatch(onLogin({ name: data.name, uid: data.uid}));
+            dispatch(onLogin({ name: data.name, uid: data.uid, type: data.typeU, email: data.email}));
 
         } catch (error) {
             dispatch(onLogout(error.response.data?.msg || 'El usuario ya existe'));
@@ -57,8 +57,8 @@ export const useAuthStore = () => {
             const { data } = await ASL.get('auth/renew')
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
-            console.log(data)
-            dispatch(onLogin({ name: data.name, uid: data.uid, type: data.typeU}));
+            //console.log(data)
+            dispatch(onLogin({ name: data.name, uid: data.uid, type: data.typeU, email: data.email}));
         } catch (error) {
             localStorage.clear();
             dispatch(onLogout());

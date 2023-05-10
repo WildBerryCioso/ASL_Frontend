@@ -1,5 +1,4 @@
 import { Button, CssBaseline, Grid, IconButton, Input, InputAdornment, TextField, Typography, Link, Divider } from '@mui/material'
-import { LoginPage } from '../../auth/pages/LoginPage';
 import Logo from '../components/ASL_img.png';
 import MenuIcon from '@mui/icons-material/Menu';
 import "./Navbar.css";
@@ -15,7 +14,7 @@ export const Navbar = () => {
   useEffect(() => {
     checkAuthToken();
   }, [])
-  
+
   return (
 
     <Box className="marco" sx={{ display: 'flex' }}>
@@ -49,34 +48,40 @@ export const Navbar = () => {
                 (user.type === 'admin')
                   ? (
                     <>
-                      
+
                     </>)
                   : (
                     <>
                       <li className="button-diagonal"><Link
                         className="text" component={Link}
-                        style={{ textDecoration: 'none', color: 'black' }} href="/">Inicio</Link></li>
+                        style={{ textDecoration: 'none', color: 'black' }} href="/">
+                        <Typography textAlign="center" fontSize='17px' fontWeight='bold' > Inicio </Typography>
+                      </Link></li>
                       <li className="button-diagonal"><Link
                         className="text" component={Link}
-                        style={{ textDecoration: 'none', color: 'black' }} href="/Catalogo">Catalogo</Link></li>
+                        style={{ textDecoration: 'none', color: 'black' }} href="/Catalogo">
+                        <Typography textAlign="center" fontSize='17px' fontWeight='bold' > Catalogo </Typography>
+                      </Link></li>
                       <li className="button-diagonal"><Link
                         className="text" component={Link}
-                        style={{ textDecoration: 'none', color: 'black' }} href="/Contacto">Contacto</Link></li>
+                        style={{ textDecoration: 'none', color: 'black' }} href="/Contacto">
+                        <Typography textAlign="center" fontSize='17px' fontWeight='bold' > Contacto </Typography>
+                      </Link></li>
                       <li className="button-diagonal"><Link
                         className="text" component={Link}
-                        style={{ textDecoration: 'none', color: 'black' }} href="/Informacion">Informacion</Link></li>
+                        style={{ textDecoration: 'none', color: 'black' }} href="/Informacion">
+                        <Typography textAlign="center" fontSize='17px' fontWeight='bold' > Informacion </Typography>
+                      </Link></li>
                     </>)
-              } 
+              }
             </ul>
           </form>
         </Grid>
 
         <Grid>
           <span >
-            {user.name}
+            <Typography textAlign="center" fontSize='17px' fontWeight='bold' > {user.name} </Typography>
           </span>
-          <IconButton sx={{ color: 'black', fontSize: '30px' }} href="/Carrito" className="fa-solid fa-cart-shopping">
-          </IconButton>
           {
             (status === 'authenticated')
               ? (
@@ -86,8 +91,11 @@ export const Navbar = () => {
                     sx={{ color: 'red', fontSize: '10px' }}
                     href="/Auth"
                     className="fas fa-sign-out-alt">
-                    &nbsp;
-                    Salir
+                    <Typography textAlign="center" fontSize='17px' fontWeight='bold' >
+                      &nbsp;
+                      Salir
+                    </Typography>
+
                   </IconButton>
                 </>)
               : (
@@ -96,8 +104,10 @@ export const Navbar = () => {
                     sx={{ color: 'black', fontSize: '10px' }}
                     href="/Auth"
                     className="fas fa-sign-out-alt">
-                    &nbsp;
-                    Login/Register
+                    <Typography textAlign="center" fontSize='17px' fontWeight='bold' >
+                      &nbsp;
+                      Login/Register
+                    </Typography>
                   </IconButton>
                 </>)
           }

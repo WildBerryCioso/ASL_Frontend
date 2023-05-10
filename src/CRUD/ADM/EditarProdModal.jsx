@@ -39,10 +39,10 @@ export const EditarProdModal = () => {
     }
 
 
-
     const { values, handleChange, handleBlur, handleSubmit, errors, touched, isSubmitting, resetForm, setValues } = useFormik({
         initialValues: {
             _id: '',
+            referencia: '',
             titulo: '',
             cantidad: '',
             precio: '',
@@ -65,16 +65,16 @@ export const EditarProdModal = () => {
             <hr />
             <form onSubmit={handleSubmit} autoComplete='off' className='animate__animated animate__fadeIn animate__faster'>
                 <Grid container direction='column' justifyContent='center'>
-                    <Grid >
+                <Grid >
                         <Grid style={{ width: '100%', padding: '5px' }}>
                             <TextField
-                                id='id'
-                                name='id'
-                                label="ID *"
+                                id='_id'
+                                name='_id'
+                                label='id *'
                                 type="text"
-                                placeholder='id'
+                                placeholder='_id'
                                 fullWidth
-                                value={values.nombre}
+                                value={values._id}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 error={errors._id && touched._id ? true : false}
@@ -85,25 +85,59 @@ export const EditarProdModal = () => {
                     <Grid >
                         <Grid style={{ width: '100%', padding: '5px' }}>
                             <TextField
-                                id='nombre'
-                                name='nombre'
-                                label="Nombre *"
+                                id='referencia'
+                                name='referencia'
+                                label="Referencia *"
                                 type="text"
-                                placeholder='Nombre'
+                                placeholder='Referencia'
                                 fullWidth
-                                value={values.nombre}
+                                value={values.referencia}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                error={errors.nombre && touched.nombre ? true : false}
-                                helperText={errors.nombre && touched.nombre ? errors.nombre : ""}
+                                error={errors.referencia && touched.referencia ? true : false}
+                                helperText={errors.referencia && touched.referencia ? errors.referencia : ""}
                             />
                         </Grid>
                     </Grid>
                     <Grid >
                         <Grid style={{ width: '100%', padding: '5px' }}>
                             <TextField
-                                id='imagenURL'
-                                nombre='imagenURL'
+                                id='titulo'
+                                name='titulo'
+                                label="Titulo *"
+                                type="text"
+                                placeholder='titulo'
+                                fullWidth
+                                value={values.titulo}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                error={errors.titulo && touched.titulo ? true : false}
+                                helperText={errors.titulo && touched.titulo ? errors.titulo : ""}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid >
+                        <Grid style={{ width: '100%', padding: '5px' }}>
+                            <TextField
+                                id='descripcion'
+                                name='descripcion'
+                                label="Descripcion *"
+                                type="text"
+                                placeholder='descripcion'
+                                fullWidth
+                                value={values.descripcion}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                error={errors.descripcion && touched.descripcion ? true : false}
+                                helperText={errors.descripcion && touched.descripcion ? errors.descripcion : ""}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid >
+                        <Grid style={{ width: '100%', padding: '5px' }}>
+                            <TextField
+                                id='img'
+                                nombre='img'
                                 type="file"
                                 fullWidth
                                 ref={fileInputRef}
@@ -143,40 +177,6 @@ export const EditarProdModal = () => {
                                 onBlur={handleBlur}
                                 error={errors.precio && touched.precio ? true : false}
                                 helperText={errors.precio && touched.precio ? errors.precio : ""}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid >
-                        <Grid style={{ width: '100%', padding: '5px' }}>
-                            <TextField
-                                id='descripcion'
-                                name='descripcion'
-                                label="Descripcion *"
-                                type="text"
-                                placeholder='descripcion'
-                                fullWidth
-                                value={values.descripcion}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                error={errors.descripcion && touched.descripcion ? true : false}
-                                helperText={errors.descripcion && touched.descripcion ? errors.descripcion : ""}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid >
-                        <Grid style={{ width: '100%', padding: '5px' }}>
-                            <TextField
-                                id='referencia'
-                                name='referencia'
-                                label="Referencia *"
-                                type="text"
-                                placeholder='referencia'
-                                fullWidth
-                                value={values.referencia}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                error={errors.referencia && touched.referencia ? true : false}
-                                helperText={errors.referencia && touched.referencia ? errors.referencia : ""}
                             />
                         </Grid>
                     </Grid>

@@ -1,14 +1,8 @@
-import { FormControl, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { useEffect, useRef, useState } from 'react';
+import { Grid, IconButton, Typography } from '@mui/material';
 import Modal from 'react-modal';
 import './stylesModal.css'
 import { useUiStore } from '../../hooks';
 import { useServices } from '../../hooks/UseServices';
-import { useFormik } from 'formik';
-import { Cancel, Save } from '@mui/icons-material';
-import { ProductosValidacion } from '../schemas/ProductosValidacion';
-import { useSelector } from 'react-redux';
 
 Modal.setAppElement('#root');
 
@@ -17,22 +11,21 @@ export const VerProdModal = (info) => {
     const { isDateModalOpen, closeDateModal } = useUiStore();
     const { savingProductos, VerProducto } = useServices();
 
+    console.log(info)
+
     const onCloseModal = () => {
         closeDateModal();
     }
-
-
-    console.log(info.info._id)
 
     return (
         <Modal
             isOpen={isDateModalOpen}
             onRequestClose={onCloseModal}
-            className="modalProductos"
+            className="modalProducto"
             overlayClassName="modal-fondo"
             closeTimeoutMS={200}
         >
-            <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='28px' fontWeight='bold' > Producto </Typography>
+            <Typography variant='h5' noWrap component='div' textAlign="center" fontSize='28px' fontWeight='bold' > {info.info.titulo} </Typography>
             <hr />
             <Grid className="page-inner">
                 <Grid className="row">

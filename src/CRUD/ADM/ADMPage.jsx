@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { Search } from '@mui/icons-material';
 import { ProductosListADM } from '../components/ProductosListADM';
 import { CheckingAuth } from '../../ui/components/CheckingAuth';
+import { EditarProdModal } from './EditarProdModal';
 
 export const ADMPage = () => {
 
@@ -26,7 +27,7 @@ export const ADMPage = () => {
         if (search.length === 0)
             return productos
         //const productosfiltrados = productos;
-        const productosfiltrados = productos.filter(prod => prod.nombre.includes(search) || prod.referencia.includes(search))
+        const productosfiltrados = productos.filter(prod => prod.titulo.includes(search) || prod.referencia.includes(search))
         return productosfiltrados
     }
 
@@ -62,25 +63,24 @@ export const ADMPage = () => {
                 item
                 xs={12}
                 sx={{ height: '100%', width: '100%', backgroundColor: 'white', marginRight: 0, marginLeft: 0, marginTop: 5 }}>
-                <Typography variant='h4' color='primary.blanco' sx={{ marginInline: 8 }}> Productos </Typography>
+                <Typography textAlign="center" fontSize='40px' fontWeight='bold' variant='h4' color='black' sx={{ marginInline: 8 }}> Productos </Typography>
                 <form autoComplete='off'>
                     <TextField
                         id="outlined-start-adornment"
                         placeholder='Buscar'
-                        value={search.toLowerCase()}
+                        value={search}
                         type="text"
-                        sx={{ marginInline: 5, width: '260px', backgroundColor: 'primary.blanco', borderRadius: '10px', marginTop: 2 }}
+                        sx={{ marginInline: 5, width: '260px', backgroundColor: 'white', borderRadius: '10px', marginTop: 2 }}
                         InputProps={{
                             startAdornment: <InputAdornment position="start"></InputAdornment>,
                             endAdornment: <InputAdornment position="end"><Button alt="Buscar"><Search /></Button></InputAdornment>
                         }}
-                        onChange={onSearchChange}
-                    />
-
+                        onChange={onSearchChange}/>
                 </form>
+                <hr />
             </Grid>
 
-            
+
             {Object.keys(productos).length === 0 ? <CheckingAuth />
                 : <ProductosListADM Productos={filteredProducts()} />}
 
@@ -100,6 +100,8 @@ export const ADMPage = () => {
             </IconButton>
 
             <CrearProdModal />
+            <EditarProdModal />
+            <hr />
         </Grid >
     )
 }

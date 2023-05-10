@@ -1,0 +1,79 @@
+.minicart {
+    background: white;
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    /* display: inline; */
+    max-height: 650px;
+    max-width: 600px;
+    outline: none;
+    padding: 0px;
+    position: fixed;
+    overflow: auto;
+    box-shadow: 2px 0px 5px 2px #000000,
+        -2px 0px 5px 2px #000000;
+}
+
+.minicart_close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.cantidad{
+    position: absolute;
+    top: -10px;
+    right: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #6d8d1d;
+}
+
+.product_info_cantidad {
+    size: 4em;
+}
+
+.product_info {
+    size: 4em;
+}
+
+.button_cart {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    background-color: #a4ce3e;
+    color: #000000;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    transition: opacity .2s ease-in-out;
+    z-index: 999;
+    border-radius: 50%;
+    font-size: 24px;
+}
+
+li {
+    display: flex;
+}
+
+li>img {
+    box-shadow: 2px 0px 5px 2px #a4ce3e,
+        -2px 0px 5px 2px #a4ce3e;
+    width: 180px;
+    height: 180px;
+}
+
+.producto {
+    box-shadow: 2px 0px 5px 2px #a4ce3e,
+        -2px 0px 5px 2px #a4ce3e;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
