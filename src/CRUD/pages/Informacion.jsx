@@ -13,9 +13,8 @@ export const Informacion = () => {
             direction="row"
             alignItems="flex-start"
             justifyContent="space-evenly"
-            item
-            xs={12}
-            sx={{ minHeight: '100vh', backgroundColor: 'white', marginTop: 5, marginRight: 0, marginLeft: 0 }}>
+            
+            sx={{ minHeight: '0vh', backgroundColor: 'white', marginTop: 3 }}>
 
             <MissionVision
                 presentacion="Somos una marca colombiana de licras deportivas multifuncionales; fundada en el año 2010. 

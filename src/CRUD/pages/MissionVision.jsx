@@ -75,7 +75,7 @@ export const MissionVision = ({ mision, vision, presentacion, encuentranos, encu
 
     return (
         <Grid>
-            <Box m={3} className='divborder'>
+            <Box  className='divborder'>
                 <Typography textAlign="center" fontSize='40px' fontWeight='bold' variant='h4' color='black' m={3}>Presentación</Typography>
                 <Box style={{ display: 'flex' }}>
                     <Typography m={3}><section className='imagen'><img src="src\img\2.jpg" alt="" /></section></Typography>

@@ -1,4 +1,4 @@
-import { FormControl, Grid, IconButton, InputLabel, Link, MenuItem, Select, Typography } from '@mui/material'
+import { FormControl, Grid, Box, IconButton, InputLabel, Link, MenuItem, Select, Typography } from '@mui/material'
 import React, { useContext, useRef, useState } from 'react'
 import { useServices } from '../../hooks/UseServices';
 import { useUiStore } from '../../hooks/useUiStore';
@@ -27,35 +27,85 @@ export const ProductosList = ({ Productos }) => {
         emailjs.send('service_c3m43xj', 'template_odm3lrg', {
             to_name: user.name,
             to_email: user.email,
+            to_number: user.number,
+            to_direction: user.direction,
             message: 'hola',
             content: base64,
         }, 'qe-773r59i-vH5hk5');
     };
 
     const createPdf = async (user, cartData, summary) => {
-        console.log(user)
         const pdfDoc = await PDFDocument.create()
         const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
         const page = pdfDoc.addPage()
         const { width, height } = page.getSize()
         const fontSize = 30
+
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        const hours = ('0' + date.getHours()).slice(-2);
+        const minutes = ('0' + date.getMinutes()).slice(-2);
+        const seconds = ('0' + date.getSeconds()).slice(-2);
+
+        const fecha = day + '/' + month + '/' + year + ' - ' + hours + ':' + minutes + ':' + seconds;
+
+        const imageUrl = '/src/img/Recurso 10@3x.png';
+        const imageBytes = await fetch(imageUrl).then(res => res.arrayBuffer());
+        const image = await pdfDoc.embedPng(imageBytes);
+
+        page.drawImage(image, {
+            x: 250,
+            y: height - 1.5 * 80,
+            width: 80,
+            height: 100,
+        });
+        page.drawText(fecha, {
+            x: 230,
+            y: 10,
+            size: 12,
+            font: timesRomanFont,
+            color: rgb(0, 0, 0),
+        });
         page.drawText('Bienvenido a ASL!', {
             x: 30,
-            y: height - 1.5 * 40,
+            y: height - 1.5 * 110,
             size: 40,
             font: timesRomanFont,
             color: rgb(0, 0, 0),
         })
-        page.drawText('El usuario ' + user.name + ' que se identifica con el correo ' + user.email + ' realizo el siguiente pedido', {
+        page.drawText('El usuario ' + user.name + ' el dia ' + fecha + ' con la siguiente informacion:', {
             x: 30,
-            y: height - 1.5 * 60,
+            y: height - 1.5 * 130,
             size: 12,
             font: timesRomanFont,
             color: rgb(0, 0, 0),
         })
-        page.drawText('con un valor de ' + new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COL' }).format(summary) + ":", {
+        page.drawText('Correo: ' + user.email, {
             x: 30,
-            y: height - 1.5 * 70,
+            y: height - 1.5 * 140,
+            size: 12,
+            font: timesRomanFont,
+            color: rgb(0, 0, 0),
+        })
+        page.drawText('Direccion: ' + user.direction, {
+            x: 30,
+            y: height - 1.5 * 150,
+            size: 12,
+            font: timesRomanFont,
+            color: rgb(0, 0, 0),
+        })
+        page.drawText('Numero de telefono: ' + user.number, {
+            x: 30,
+            y: height - 1.5 * 160,
+            size: 12,
+            font: timesRomanFont,
+            color: rgb(0, 0, 0),
+        })
+        page.drawText('Realizo el siguiente pedido con un valor de ' + new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COL' }).format(summary) + ":", {
+            x: 30,
+            y: height - 1.5 * 170,
             size: 12,
             font: timesRomanFont,
             color: rgb(0, 0, 0),
@@ -63,7 +113,7 @@ export const ProductosList = ({ Productos }) => {
         cartData.map((prod, i) => {
             page.drawText('-' + prod.titulo + ' de referencia ' + prod.referencia + ' y talla ' + prod.talla + '  -   Precio: ' + new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COL' }).format(prod.precio), {
                 x: 30,
-                y: height - 130 - (i) * fontSize,
+                y: height - 280 - (i) * fontSize,
                 size: 12,
                 font: timesRomanFont,
                 color: rgb(0, 0, 0),
@@ -75,12 +125,15 @@ export const ProductosList = ({ Productos }) => {
         const base64 = await pdfDc.saveAsBase64({ dataUri: true });
         sendEmail(base64);
         download(pdfBytes, "pedido.pdf");
+        CleanCart()
         Swal.fire({
             title: 'Pedido solicitado',
             text: "Pedido solicitado y enviado al correo de ASL",
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK',
         })
+
+
     }
 
     const AddToCart = async (item) => {
@@ -140,6 +193,7 @@ export const ProductosList = ({ Productos }) => {
     };
 
     const RemoveToCart = (index) => {
+        console.log(index)
         Swal.fire({
             title: 'Estas seguro?',
             text: "Lo que vas a hacer no se puede revertir!",
@@ -156,6 +210,12 @@ export const ProductosList = ({ Productos }) => {
                 setCartData(tempInfoCart);
             }
         })
+    };
+
+    const CleanCart = () => {
+        const tempInfoCart = [...cartData];
+        tempInfoCart.splice(0, tempInfoCart.length);
+        setCartData(tempInfoCart);
     };
 
     useEffect(() => {
@@ -203,9 +263,11 @@ export const ProductosList = ({ Productos }) => {
                                 <img className="img" src={prod.img} alt=""></img>
                                 <Grid className="img-info">
                                     <Grid className="info-inner">
-                                        <Typography className="p-name" textAlign="center" fontSize='20px' fontWeight='bold' variant='h4' color='black' sx={{ marginInline: 8 }}> {prod.titulo} </Typography>
-                                        <hr />
-                                        <span className="p-cantidad">{prod.cantidad}</span>
+                                        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="100%">
+                                            <Typography className="p-name" textAlign="center" fontSize='20px' fontWeight='bold' variant='h4' color='black' sx={{ marginInline: 8 }}> {prod.titulo} </Typography>
+                                            <hr />
+                                            <span className="p-cantidad">{prod.cantidad}</span>
+                                        </Box>
                                     </Grid>
                                     <Grid className="a-size"><span className="size">{prod.descripcion}</span></Grid>
                                 </Grid>
@@ -255,7 +317,7 @@ export const ProductosList = ({ Productos }) => {
                         </Grid>
                     </Grid>
                     {/* <VerProdModal info={(prod)} /> */}
-                    <Grid >
+                    < Grid >
                         <>
                             {openCart && (
                                 <Grid
@@ -339,7 +401,7 @@ export const ProductosList = ({ Productos }) => {
                             </Grid>
                         </>
                     </Grid>
-                </Grid>
+                </Grid >
             ))
             }
         </Grid >

@@ -42,16 +42,17 @@ export const PrincipalPage = () => {
                 item
                 xs={12}
                 sx={{ height: '100%', width: '100%', backgroundColor: 'white', marginRight: 0, marginLeft: 0, marginTop: 5 }}>
-
-                <form action="">
-                    <section>
-                        <img src="src\img\1.jpg" alt="" />
-                        <img src="src\img\2.jpg" alt="" />
-                        <img src="src\img\3.jpg" alt="" />
-                        <img src="src\img\4.jpg" alt="" />
-                        <img src="src\img\5.jpg" alt="" />
-                    </section>
-                </form>
+                <Grid>
+                    <form action="">
+                        <section>
+                            <img src="src\img\1.jpg" alt="" />
+                            <img src="src\img\2.jpg" alt="" />
+                            <img src="src\img\3.jpg" alt="" />
+                            <img src="src\img\4.jpg" alt="" />
+                            <img src="src\img\5.jpg" alt="" />
+                        </section>
+                    </form>
+                </Grid>
 
                 <br />
                 <br />
@@ -61,7 +62,7 @@ export const PrincipalPage = () => {
                     {images.map((image) => (
                         <Grid className='img' key={image.url}>
                             <Typography className="p-name" textAlign="center" fontSize='20px' fontWeight='bold' variant='h4' color='black' sx={{ marginInline: 8 }}>{image.title}</Typography>
-                            <img className='img' src={image.url} alt={image.title} />
+                            <img className='imga' src={image.url} alt={image.title} />
                         </Grid>
                     ))}
                 </Grid>

@@ -327,7 +327,7 @@ section {
 .login-container{
   margin-top: 5%;
   margin-block-end: 5%;
-  width: 100%;
+  width: 80%;
   height: 50%;
   object-fit: cover;
 }
@@ -338,7 +338,7 @@ section {
   height: 50%;
   object-fit: cover;
 }
-.img{
+.imga{
   width: 50%;
   height: 25%;
   display: flex; 

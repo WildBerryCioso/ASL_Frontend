@@ -18,7 +18,7 @@ export const useAuthStore = () => {
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             console.log(data);
-            dispatch(onLogin({ name: data.name, uid: data.uid, type: data.typeU, email: data.email}));
+            dispatch(onLogin({ name: data.name, uid: data.uid, type: data.typeU, email: data.email, direction: data.direction, number: data.number}));
 
         } catch (error) {
             dispatch(onLogout('Credenciales incorrectas'));
@@ -29,16 +29,16 @@ export const useAuthStore = () => {
     }
 
     // startRegister
-    const startRegister = async ({ email, password, name, typeU }) => {
+    const startRegister = async ({ email, password, name, typeU, direction, number }) => {
         dispatch(onChecking());
         console.log({ email, password });
 
         try {
-            const { data } = await ASL.post('/auth/new', { email, password, name, typeU});
+            const { data } = await ASL.post('/auth/new', { email, password, name, typeU, direction, number});
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             console.log(data);
-            dispatch(onLogin({ name: data.name, uid: data.uid, type: data.typeU, email: data.email}));
+            dispatch(onLogin({ name: data.name, uid: data.uid, type: data.typeU, email: data.email, direction: data.direction, number: data.number}));
 
         } catch (error) {
             dispatch(onLogout(error.response.data?.msg || 'El usuario ya existe'));
@@ -58,7 +58,7 @@ export const useAuthStore = () => {
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             //console.log(data)
-            dispatch(onLogin({ name: data.name, uid: data.uid, type: data.typeU, email: data.email}));
+            dispatch(onLogin({ name: data.name, uid: data.uid, type: data.typeU, email: data.email, direction: data.direction, number: data.number}));
         } catch (error) {
             localStorage.clear();
             dispatch(onLogout());
